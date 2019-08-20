@@ -12,7 +12,7 @@ In your terminal:
 
 `git clone https://github.com/rnmessick/songr.git`
 
-`./gradlew run`
+`./gradlew bootrun`
 
 visit: http://localhost:8080/hello
 
