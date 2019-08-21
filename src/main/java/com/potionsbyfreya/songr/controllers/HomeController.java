@@ -1,4 +1,4 @@
-package com.potionsbyfreya.songr;
+package com.potionsbyfreya.songr.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,17 +44,17 @@ public class HomeController {
     public static String reverseOrderOfWords(String string) {
 
         String[] temp = string.split(" ");
-        String result = "";
+        StringBuilder result = new StringBuilder();
 
         // Iterate over the temp array and store
         // the string in reverse order.
         for (int i = 0; i < temp.length; i++) {
             if (i == temp.length - 1) {
-                result = temp[i] + result;
+                result.insert(0, temp[i]);
             } else {
-                result = " " + temp[i] + result;
+                result.insert(0, " " + temp[i]);
             }
         }
-        return result;
+        return result.toString();
     }
 }
