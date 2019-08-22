@@ -1,18 +1,10 @@
 package com.potionsbyfreya.songr.models;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Album {
-    //Feature Tasks
-    //DONE:Create an Album model.
-    //An Album has a title, an artist, a songCount, a length (in seconds), and an imageUrl that is a link to that album’s art.
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,8 +12,14 @@ public class Album {
     String title;
     String artist;
     int songCount;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "album")
+    List<Song> songs;
+
     int lengthInSeconds;
     String imageUrl;
+
+
 
     public Album() {}
 
@@ -31,6 +29,10 @@ public class Album {
         this.songCount = songCount;
         this.lengthInSeconds = lengthInSeconds * 60;
         this.imageUrl = imageUrl;
+
+    }
+
+    public Album(Object album) {
 
     }
 
@@ -46,6 +48,8 @@ public class Album {
         return songCount;
     }
 
+    public List<Song> getSong() { return songs;}
+
     public int getLengthInSeconds() {
         return lengthInSeconds;
     }
@@ -53,6 +57,7 @@ public class Album {
     public String getImageUrl() {
         return imageUrl;
     }
+
 
     //A user should be able to see information about all the albums on the site.
     //A user should be able to add albums to the site.

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Album Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<h1 th:text=""${album}></h1>
+<div th:each="song : ${album.songs}">
+    <h3 th:id="${song.title}" th:text="${song.title}">Song Title</h3>
+    <h2 th:text="${song.trackNumber}">Track # </h2>
+    <h2 th:text="${song.lengthInSeconds}">Song Length(in seconds): </h2>
+</div>
+
+<h2>Add a new song to the album</h2>
+
+<form method="POST" th:action="${'/albums/' + album.id + '/songs'}">
+    <p>
+        <label for="albumTitle"> Album Title </label>
+        <input type="text" name="album" id="albumTitle">
+    </p>
+    <p>
+        <label for="songTitle"> Song Title </label>
+        <input type="text" name="title" id="songTitle" />
+    </p>
+    <p>
+        <label for="trackNumber"> Track Number on Album </label>
+        <input type="number" name="trackNumber" id="trackNumber" />
+    </p>
+    <p>
+        <label for="lengthInSeconds"> Song Length</label>
+        <input type="number" name="lengthInSeconds" id="lengthInSeconds" />
+    </p>
+    <input type="submit"/>
+</form>
+
+</body>
+</html>
