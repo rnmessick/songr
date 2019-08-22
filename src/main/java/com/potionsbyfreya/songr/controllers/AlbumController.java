@@ -2,13 +2,17 @@ package com.potionsbyfreya.songr.controllers;
 
 import com.potionsbyfreya.songr.models.Album;
 import com.potionsbyfreya.songr.models.AlbumRepository;
+import com.potionsbyfreya.songr.models.Song;
+import com.potionsbyfreya.songr.models.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.jws.WebParam;
 import java.util.List;
 
 @Controller
@@ -19,7 +23,6 @@ public class AlbumController {
 
     @GetMapping("/albums")
     public String getAllAlbums(Model a) {
-//        Album firstAlbum = new Album("Return to Cookie Mountain", "TV on the Radio", 11, 3366, "songr\\src\\main\\resources\\static\\Cookiemtn.jpg");
         List<Album> albums = albumRepository.findAll();
         a.addAttribute("albums", albums);
         return "allAlbums";
@@ -31,4 +34,6 @@ public class AlbumController {
         albumRepository.save(a);
         return new RedirectView("/albums");
     }
+
+
 }
