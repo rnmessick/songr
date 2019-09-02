@@ -22,25 +22,20 @@ public class SongController {
     @Autowired
     AlbumRepository albumRepository;
 
+//
+//    @GetMapping("/albums/{id}")
+//    public String getAllSongsOnAlbum(@PathVariable long id, Model m) {
+//        List<Song> songs = songRepository.findAll();
+//        m.addAttribute("songs", songs);
+//        return "oneAlbum";
+//    }
 
-    @GetMapping("/albums/{id}")
-    public String getAllSongsOnAlbum(@PathVariable long id, Model m) {
-        List<Song> songs = songRepository.findAll();
-        m.addAttribute("songs", songs);
-        return "oneAlbum";
-    }
-
-    @PostMapping("/albums/{id}")
-    public RedirectView addSong(Album album, String title, Integer trackNumber, Integer lengthInSeconds) {
-        Album a = albumRepository.findByTitleOfAlbum(album);
-        if(a == null) {
-            a = new Album(album);
-            albumRepository.save(a);
-        }
-        Song s = new Song(title, a, trackNumber, lengthInSeconds);
+    @PostMapping("/albums/addSong")
+    public RedirectView addSong(long albumId, String trackTitle, Integer trackNumber, Integer lengthInSeconds) {
+        Album a = albumRepository.findById(albumId).get();
+        Song s = new Song(a, trackTitle, trackNumber, lengthInSeconds);
         songRepository.save(s);
-            return new RedirectView("/albums{id}");
-
+        return new RedirectView("/albums/" + albumId);
 
     }
 }

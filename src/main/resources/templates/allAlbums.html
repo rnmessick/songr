@@ -3,41 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <title>All Albums</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<div th:each="album : ${albums}">
-    <img th:id="${album.imageUrl}" th:src="${album.imageUrl}" alt="album cover"/>
-    <h3 th:id="${album.title}" th:text="${album.title}">Album Title</h3>
-    <h2 th:text="${album.artist}">Album Artist</h2>
-    <h2 th:text="${album.songCount}">Album Tracks</h2>
-    <h2 th:text="${album.lengthInSeconds}">Album Length</h2>
+<div class="container">
+    <div class="col-md-3" th:each="album : ${albums}">
+        <img th:id="${album.imageUrl}" th:src="${album.imageUrl}" alt="album cover"/>
+        <h3 th:id="${album.title}" th:text="${album.title}">Album Title</h3>
+        <h3>Album Artist:  <span th:text="${album.artist}"></span></h3>
+        <h3>Album Tracks(#): <span th:text="${album.songCount}"></span></h3>
+        <h3>Album Length(in seconds): <span th:text="${album.lengthInSeconds}"></span></h3>
+        <a th:href="@{'/albums/' + ${album.id}}">Add a song to the album!</a>
+    </div>
 </div>
 
-<div>
-    <form method="POST" action="/albums">
-        <p>
+<h2>Add an album to your collection!</h2>
+<form method="POST" action="/albums">
+    <div class="row">
+        <div class="form-group col-md-3">
             <label for="title"> Album Name: </label>
-            <input type="text" name="title" id="title">
-        </p>
-        <p>
+            <input class="form-control" type="text" name="title" id="title">
+        </div>
+        <div class="form-group col-md-3">
             <label for="artist"> Artist Name: </label>
-            <input type="text" name="artist" id="artist">
-        </p>
-        <p>
+            <input class="form-control" type="text" name="artist" id="artist">
+        </div>
+        <div class="form-group col-md-3">
             <label for="songCount"> Number of Album Tracks </label>
-            <input type="number" name="songCount" id="songCount">
-        </p>
-        <p>
-            <label for="lengthInSeconds"> Album Length(seconds) </label>
-            <input type="number" name="lengthInSeconds" id="lengthInSeconds">
-        </p>
-        <p>
+            <input class="form-control" type="number" name="songCount" id="songCount">
+        </div>
+        <div class="form-group col-md-3">
+            <label for="lengthInSeconds"> Album Length(minutes) </label>
+            <input class="form-control" type="number" name="lengthInSeconds" id="lengthInSeconds">
+        </div>
+        <div class="form-group col-md-6">
             <label for="imageUrl"> Album Cover Art </label>
-            <input type="text" name="imageUrl" id="imageUrl">
-        </p>
-        <input type="submit"/>
-    </form>
+            <input class="form-control" type="text" name="imageUrl" id="imageUrl">
+        </div>
+        <input class="btn btn-primary" type="submit"/>
+    </div>
+    </div>
+</form>
 </div>
 
 </body>

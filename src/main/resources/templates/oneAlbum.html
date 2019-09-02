@@ -1,39 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Album Page</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<h1 th:text=""${album}></h1>
-<div th:each="song : ${album.songs}">
-    <h3 th:id="${song.title}" th:text="${song.title}">Song Title</h3>
-    <h2 th:text="${song.trackNumber}">Track # </h2>
-    <h2 th:text="${song.lengthInSeconds}">Song Length(in seconds): </h2>
+<div class="container">
+    <a href="/albums">Back to Album Collection</a>
+    <h1 th:text="${album.title}">Album title</h1>
+    <ul>
+    <li th:each="song : ${songs}">
+        Track # <span th:text="${song.trackNumber}"></span><br>
+        Song Title: <span th:text="${song.trackTitle}"></span><br>
+        Song Length(in seconds):<span th:text="${song.lengthInSeconds}"></span>
+    </li>
+    </ul>
+    <h2>Add a new song to the album</h2>
+
+    <form class="form-group" method="POST" action="/albums/addSong">
+
+            <label for="songTitle"> Song Title </label>
+            <input type="text" name="trackTitle" id="songTitle"/>
+
+            <label for="trackNumber"> Track Number on Album </label>
+            <input type="number" name="trackNumber" id="trackNumber"/>
+
+            <label for="lengthInSeconds"> Song Length</label>
+            <input type="number" name="lengthInSeconds" id="lengthInSeconds"/>
+        <input type="hidden" name="albumId" th:value="${album.id}">
+        <input type="submit"/>
+    </form>
 </div>
-
-<h2>Add a new song to the album</h2>
-
-<form method="POST" th:action="${'/albums/' + album.id + '/songs'}">
-    <p>
-        <label for="albumTitle"> Album Title </label>
-        <input type="text" name="album" id="albumTitle">
-    </p>
-    <p>
-        <label for="songTitle"> Song Title </label>
-        <input type="text" name="title" id="songTitle" />
-    </p>
-    <p>
-        <label for="trackNumber"> Track Number on Album </label>
-        <input type="number" name="trackNumber" id="trackNumber" />
-    </p>
-    <p>
-        <label for="lengthInSeconds"> Song Length</label>
-        <input type="number" name="lengthInSeconds" id="lengthInSeconds" />
-    </p>
-    <input type="submit"/>
-</form>
-
 </body>
 </html>
