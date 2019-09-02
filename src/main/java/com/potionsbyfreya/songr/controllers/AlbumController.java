@@ -20,6 +20,8 @@ public class AlbumController {
 
     @Autowired
     AlbumRepository albumRepository;
+    @Autowired
+    SongRepository songRepository;
 
     @GetMapping("/albums")
     public String getAllAlbums(Model a) {
@@ -33,6 +35,17 @@ public class AlbumController {
         Album a = new Album(title, artist, songCount, lengthInSeconds, imageUrl);
         albumRepository.save(a);
         return new RedirectView("/albums");
+    }
+
+    @GetMapping("albums/{id}")
+    public String getOneAlbum(@PathVariable long id, Model m) {
+        Album selectedAlbum = albumRepository.findById(id).get();
+//        Song songsOnAlbum = songRepository.findByAlbum(id);
+        m.addAttribute("album", selectedAlbum);
+        List<Song> songs = songRepository.findAll();
+        m.addAttribute("songs", songs);
+//        m.addAttribute("songs", songsOnAlbum);
+        return "oneAlbum";
     }
 
 

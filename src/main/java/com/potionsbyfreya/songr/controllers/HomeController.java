@@ -18,10 +18,11 @@ public class HomeController {
 
     // Models: useful for passing data to templates
     @GetMapping("/hello")
-    public String getSayHello(@RequestParam(required=false, defaultValue = "World") String name, Model m) {
+    public String getSayHello(@RequestParam(required = false, defaultValue = "World") String name, Model m) {
         // add any pieces of data that you want available in the template
         m.addAttribute("firstName", name);
-        return "greeting";    }
+        return "greeting";
+    }
 
 
     @GetMapping("/capitalize/{word}")
@@ -32,7 +33,7 @@ public class HomeController {
     }
 
     @GetMapping("/reverse")
-    public String reverseWordOrder(@RequestParam(required=false, defaultValue = "Testing the reverse method") String words, Model m) {
+    public String reverseWordOrder(@RequestParam(required = false, defaultValue = "Testing the reverse method") String words, Model m) {
         m.addAttribute("words", reverseOrderOfWords(words));
         return "reversed";
     }

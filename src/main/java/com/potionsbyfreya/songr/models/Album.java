@@ -20,10 +20,10 @@ public class Album {
     String imageUrl;
 
 
+    public Album() {
+    }
 
-    public Album() {}
-
-    public Album(String title, String artist, int songCount, int lengthInSeconds, String imageUrl ) {
+    public Album(String title, String artist, int songCount, int lengthInSeconds, String imageUrl) {
         this.title = title;
         this.artist = artist;
         this.songCount = songCount;
@@ -32,30 +32,32 @@ public class Album {
 
     }
 
-    public Album(Object album) {
-
+    public long getId() {
+        return this.id;
     }
 
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     public String getArtist() {
-        return artist;
+        return this.artist;
     }
 
     public int getSongCount() {
-        return songCount;
+        return this.songCount;
     }
 
-    public List<Song> getSong() { return songs;}
+    public List<Song> getSong() {
+        return this.songs;
+    }
 
     public int getLengthInSeconds() {
-        return lengthInSeconds;
+        return this.lengthInSeconds;
     }
 
     public String getImageUrl() {
-        return imageUrl;
+        return this.imageUrl;
     }
 
 
